@@ -395,13 +395,6 @@ const IconPin = (props) => (
   </svg>
 );
 
-useEffect(() => {
-  const onResize = () => {
-    if (window.innerWidth >= 768) setMobileMenuOpen(false); // md breakpoint
-  };
-  window.addEventListener("resize", onResize);
-  return () => window.removeEventListener("resize", onResize);
-}, []);
 
 /* =========================
    High-Luxury Modal Shell
@@ -1220,6 +1213,14 @@ export default function App() {
   const [legalModal, setLegalModal] = useState(null); // impressum | datenschutz | agb
   const [filter, setFilter] = useState("Alle");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  useEffect(() => {
+  const onResize = () => {
+    if (window.innerWidth >= 768) setMobileMenuOpen(false); // md breakpoint
+  };
+  window.addEventListener("resize", onResize);
+  return () => window.removeEventListener("resize", onResize);
+}, []);
+
 
 
   const [successModal, setSuccessModal] = useState(null); // "order" | "contact" | null
@@ -2351,9 +2352,10 @@ onPointerLeave={(e) => {
 }}
 
   onClickCapture={dragFillings.onClickCapture}
-  className={`mt-1 hide-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2 drag-scroll ${fillingsDragging ? "dragging" : ""}
+  className={`mt-1 hide-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2 drag-scroll ${
+  fillingsDragging ? "dragging" : ""
+}`}
 
-  }`}
   style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
 >
 
