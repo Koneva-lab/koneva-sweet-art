@@ -1655,12 +1655,21 @@ useEffect(() => {
   // Füllungen
   const fillings = useMemo(
     () => [
-      { src: "/images/fillings/filling1.jpg", title: "Vanille · Bourbon", note: "cremig, elegant" },
-      { src: "/images/fillings/filling2.jpg", title: "Schokolade · Dark", note: "intensiv, fein" },
-      { src: "/images/fillings/filling3.jpg", title: "Pistazie", note: "nussig, edel" },
-      { src: "/images/fillings/filling4.jpg", title: "Haselnuss · Praliné", note: "samtig, rund" },
-      { src: "/images/fillings/filling5.jpg", title: "Zitrone · Mohn", note: "frisch, klar" },
-      { src: "/images/fillings/filling6.jpg", title: "Himbeere", note: "fruchtig, fein" },
+      { src: "/images/fillings/filling1.jpg", title: "Schwarzwald-Torte", note: "intensiv, fein" },
+      { src: "/images/fillings/filling2.jpg", title: "Schokoladen-Sahne-Mix", note: "cremig, elegant" },
+      { src: "/images/fillings/filling3.jpg", title: "Schokoladen-Kirsch-Torte", note: "fruchtig, fein" },
+      { src: "/images/fillings/filling4.jpg", title: "Erdbeer-Mojito-Torte", note: "frisch, klar" },
+      { src: "/images/fillings/filling5.jpg", title: "Snickers-Torte", note: "nussig, karamellig" },
+      { src: "/images/fillings/filling6.jpg", title: "Schokoladen-Mousse-Kirsch-Torte", note: "fruchtig, samtig" },
+{ src: "/images/fillings/filling7.jpg", title: "Haselnuss-Karamell-Mascarpone-Torte", note: "karamellig, samtig" },
+{ src: "/images/fillings/filling8.jpg", title: "Karamell-Apfel-Torte", note: "fruchtig, samtig" },
+{ src: "/images/fillings/filling9.jpg", title: "Mango-Erdbeer-Torte", note: "fruchtig, frisch" },
+{ src: "/images/fillings/filling10.jpg", title: "Karamell-Frischkäse- und Beeren-Torte", note: "karamellig und fruchtig" },
+{ src: "/images/fillings/filling11.jpg", title: "Pina-Colada- und Mandel-Kirsch-Torte", note: "fruchtig, samtig" },
+{ src: "/images/fillings/filling12.jpg", title: "verschiedene Torten", note: "fruchtig, samtig" },
+{ src: "/images/fillings/filling13.jpg", title: "Mandarinen-Tartellete", note: "fruchtig, samtig" },
+{ src: "/images/fillings/filling14.jpg", title: "Zitronen-Tartellete", note: "fruchtig, samtig" },
+{ src: "/images/fillings/filling15.jpg", title: "Aprikosen-Cognac-Tartellete", note: "fruchtig, samtig" },
     ],
     []
   );
@@ -1765,7 +1774,7 @@ useEffect(() => {
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className="mx-auto mb-10 w-64 h-64 md:w-64 md:h-64 rounded-full overflow-hidden relative"
+            className="mx-auto mb-10 w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden relative"
           >
             <div className="absolute inset-0 pointer-events-none rounded-full border-2 border-gold/65" />
             <div className="absolute -inset-2 pointer-events-none rounded-full border border-gold/25 blur-[2px]" />
