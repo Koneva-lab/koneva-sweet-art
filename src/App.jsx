@@ -146,6 +146,43 @@ const GlobalLuxuryStyles = React.memo(() => (
       .brand-shimmer, .gold-shimmer { animation: none !important; color: rgba(201,162,77,0.92) !important; -webkit-text-fill-color: rgba(201,162,77,0.92) !important; }
       .nav-underline { animation: none !important; }
     }
+      /* HERO Background – Desktop */
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+}
+
+/* HERO Background – Mobile */
+@media (max-width: 768px) {
+  .hero-bg {
+    background-position: center 18%;
+    background-size: 125%;
+  }
+}
+
+  .order-bg {
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 768px) {
+  .order-bg {
+    background-position: center 30%;
+    background-size: 125%;
+  }
+}
+.faq-bg {
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 768px) {
+  .faq-bg {
+    background-position: center 60%;
+  }
+}
+
+
     `}</style>
 ));
 
@@ -1865,14 +1902,14 @@ useEffect(() => {
 
       {/* HERO */}
       <section
-        id="top"
-        className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 relative"
-        style={{
-          backgroundImage: `url(${HERO_BG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+  id="top"
+  className="hero-bg min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 relative"
+  style={{
+    backgroundImage: `url(${HERO_BG})`,
+  }}
+>
+
+      
         <div className="absolute inset-0 bg-black/60" />
 
         <div className="relative z-10">
@@ -2064,14 +2101,13 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
 
       {/* ORDER */}
       <section
-        id="order"
-        className="py-24 md:py-40 px-6 relative"
-        style={{
-          backgroundImage: `url(${ORDER_BG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+  id="order"
+  className="order-bg py-24 md:py-40 px-6 relative"
+  style={{
+    backgroundImage: `url(${ORDER_BG})`,
+  }}
+>
+
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 max-w-3xl mx-auto">
           <SectionTitle kicker="Individuelle Anfrage" title="Bestellung" />
@@ -2498,14 +2534,13 @@ onPointerLeave={(e) => {
 
       {/* FAQ */}
       <section
-        id="faq"
-        className="py-24 md:py-40 px-6 relative"
-        style={{
-          backgroundImage: `url(${FAQ_BG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+  id="faq"
+  className="faq-bg py-24 md:py-40 px-6 relative"
+  style={{
+    backgroundImage: `url(${FAQ_BG})`,
+  }}
+>
+
         <div className="absolute inset-0 bg-black/65" />
         <div className="relative z-10 max-w-4xl mx-auto">
           <SectionTitle kicker="Fragen" title="FAQ" />
