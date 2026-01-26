@@ -190,13 +190,13 @@ const GlobalLuxuryStyles = React.memo(() => (
 /* Mobile Anpassungen */
 @media (max-width: 768px){
   /* HERO: deutlich nach rechts */
-  .hero-bg{ background-position: 50% center; }
+  .hero-bg{ background-position: 40% center; }
 
   /* BESTELLUNG: deutlich nach links */
-  .order-bg{ background-position: 50% center; }
+  .order-bg{ background-position: 60% center; }
 
   /* FAQ: weiter nach rechts */
-  .faq-bg{ background-position: 50% center; }
+  .faq-bg{ background-position: 40% center; }
 }
 }
 
