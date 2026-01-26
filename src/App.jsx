@@ -395,6 +395,14 @@ const IconPin = (props) => (
   </svg>
 );
 
+useEffect(() => {
+  const onResize = () => {
+    if (window.innerWidth >= 768) setMobileMenuOpen(false); // md breakpoint
+  };
+  window.addEventListener("resize", onResize);
+  return () => window.removeEventListener("resize", onResize);
+}, []);
+
 /* =========================
    High-Luxury Modal Shell
    ========================= */
@@ -1211,9 +1219,12 @@ export default function App() {
 
   const [legalModal, setLegalModal] = useState(null); // impressum | datenschutz | agb
   const [filter, setFilter] = useState("Alle");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
   const [successModal, setSuccessModal] = useState(null); // "order" | "contact" | null
   const closeSuccessModal = () => setSuccessModal(null);
+  
 
   const [, setCookieConsent] = useState(null);
   const cookieOpenRef = useRef(null);
@@ -1677,8 +1688,8 @@ useEffect(() => {
   // Videos
   const videos = useMemo(
     () => [
-      { src: "/videos/video1.mp4", poster: "/images/videos/poster1.jpg", title: "Making-of · Detail" },
-      { src: "/videos/video2.mp4", poster: "/images/videos/poster2.jpg", title: "Finish · Texture" },
+      { src: "/videos/video1.mp4", poster: "/images/videos/poster1.jpg", title: "Finisch · Detail" },
+      { src: "/videos/video2.mp4", poster: "/images/videos/poster2.jpg", title: "Finisch · Texture" },
       { src: "/videos/video3.mp4", poster: "/images/videos/poster3.jpg", title: "Setup · Sweet Table" },
     ],
     []
@@ -1753,8 +1764,74 @@ useEffect(() => {
             })}
           </nav>
 
-          <div className="md:hidden text-xs text-cream/70">Menü</div>
+          <button
+  type="button"
+  className="md:hidden w-11 h-11 rounded-full border border-white/10 bg-white/5 text-cream hover:border-gold/40 transition flex items-center justify-center"
+  onClick={() => setMobileMenuOpen((v) => !v)}
+  aria-label="Menü öffnen"
+  aria-expanded={mobileMenuOpen}
+>
+  ☰
+</button>
+
         </div>
+         {/* ✅ HIER: Mobile Menü Overlay */}
+  <AnimatePresence>
+    {mobileMenuOpen && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="md:hidden fixed inset-0 z-[60]"
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+
+        {/* Panel */}
+        <motion.div
+          initial={{ y: -14, opacity: 0, scale: 0.98 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: -10, opacity: 0, scale: 0.985 }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
+          className="absolute top-4 left-4 right-4 rounded-3xl border border-gold/25 bg-[#0E0E0E] overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="p-5 flex items-center justify-between border-b border-white/10">
+            <p className="uppercase tracking-[0.28em] text-[11px] text-gold">Menü</p>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-2xl text-cream/70 hover:text-cream transition"
+              aria-label="Schließen"
+            >
+              ×
+            </button>
+          </div>
+
+          <nav className="p-4">
+            <div className="grid gap-2">
+              {navLinks.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={(e) => {
+                    onNavClick(e, l.href);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-cream/85 hover:text-cream hover:border-gold/40 transition"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
       </header>
 
       {/* HERO */}
@@ -2329,7 +2406,7 @@ onPointerLeave={(e) => {
       {/* VIDEOS */}
       <section id="videos" className="py-24 md:py-40 px-6 bg-black">
         <div className="max-w-6xl mx-auto">
-          <SectionTitle kicker="Behind the Scenes" title="Videos" />
+          <SectionTitle kicker="Hinter den Kulissen" title="Videos" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {videos.map((v) => (
