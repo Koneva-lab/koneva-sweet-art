@@ -154,29 +154,19 @@ const GlobalLuxuryStyles = React.memo(() => (
   background-position: center;
 }
 
-/* ===== Mobile Anpassungen ===== */
+/* ===== Mobile Anpassungen (dein “guter” Stand) ===== */
 @media (max-width: 768px){
 
-  /* HERO: deutlich nach rechts (fokussiere rechten Bildbereich) */
-  .hero-bg{
-    background-position: 75% 18%;
-    background-size: 125%;
-  }
+  /* HERO: deutlich nach rechts */
+  .hero-bg{ background-position: 40% center; }
 
   /* BESTELLUNG: deutlich nach links */
-  .order-bg{
-    background-position: 25% 30%;
-    background-size: 125%;
-  }
+  .order-bg{ background-position: 60% center; }
 
-  /* FAQ: nach rechts */
-  .faq-bg{
-    background-position: 70% 60%;
-    background-size: cover;
-  }
+  /* FAQ: weiter nach rechts */
+  .faq-bg{ background-position: 40% center; }
 }
-
-
+}
     `}</style>
     
 ));
@@ -1288,6 +1278,13 @@ const [zoomScale, setZoomScale] = useState(1);
   const offersSliderRef = useRef(null);
   const fillingsSliderRef = useRef(null);
   const gallerySliderRef = useRef(null);
+  // Autoplay Pause nach User-Interaktion (Mobile)
+const pauseAutoUntilRef = useRef(0);
+
+const markUserInteracted = () => {
+  pauseAutoUntilRef.current = Date.now() + 8000; // 8 Sekunden Pause nach Swipe
+};
+
 
 
   // Drag UX state (hint + cursor class)
@@ -1308,24 +1305,25 @@ const [fillingsDragging, setFillingsDragging] = useState(false);
 useEffect(() => {
   const isMobile = window.innerWidth < 768;
   const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-
   if (!isMobile || reduced) return;
+
+  const shouldPause = () => Date.now() < pauseAutoUntilRef.current;
 
   const tick = (ref) => {
     const el = ref.current;
     if (!el) return;
 
-    // Wenn Nutzer gerade draggt / scrollt: kurz aussetzen
+    // Pause nach User-Interaktion
+    if (shouldPause()) return;
+
+    // Wenn Finger noch drauf ist: nicht auto scrollen
     if (el.matches(":active")) return;
 
     const max = el.scrollWidth - el.clientWidth;
     const nearEnd = el.scrollLeft >= max - 4;
 
-    if (nearEnd) {
-      el.scrollTo({ left: 0, behavior: "smooth" });
-    } else {
-      scrollByCard(el, 1);
-    }
+    if (nearEnd) el.scrollTo({ left: 0, behavior: "smooth" });
+    else scrollByCard(el, 1);
   };
 
   const id = setInterval(() => {
@@ -1335,6 +1333,7 @@ useEffect(() => {
 
   return () => clearInterval(id);
 }, []);
+
 
 
   const navLinks = useMemo(
@@ -2315,10 +2314,14 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
           {/* MOBILE: Slider (wie Angebote) */}
 <div className="md:hidden">
   <div
-    ref={gallerySliderRef}
-    className="hide-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2"
-    style={{ WebkitOverflowScrolling: "touch" }}
-  >
+  ref={gallerySliderRef}
+  onTouchStart={markUserInteracted}
+  onPointerDown={markUserInteracted}
+  onScroll={markUserInteracted}
+  className="hide-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2"
+  style={{ WebkitOverflowScrolling: "touch" }}
+>
+
     {filtered.map((g, idx) => (
       <button
         key={`${g.src}-${idx}`}
@@ -2422,26 +2425,7 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
                 Horizontal Slider
               </p>
 
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => scrollByCard(fillingsSliderRef.current, -1)}
-                  className="w-10 h-10 rounded-full border border-white/10 bg-white/5 text-cream hover:border-gold/40 transition"
-                  aria-label="Zurück"
-                  title="Zurück"
-                >
-                  ‹
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollByCard(fillingsSliderRef.current, 1)}
-                  className="w-10 h-10 rounded-full border border-white/10 bg-white/5 text-cream hover:border-gold/40 transition"
-                  aria-label="Weiter"
-                  title="Weiter"
-                >
-                  ›
-                </button>
-              </div>
+              
             </div>
 
 {fillingsHint && (
@@ -2458,72 +2442,66 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
 )}
             <div
   ref={fillingsSliderRef}
-  onPointerDown={(e) => {
-  dragFillings.onPointerDown(e);
-  setFillingsHint(false);
-  setFillingsDragging(true);
-}}
+  className="relative mt-1">
+  {/* Pfeil links */}
+  <button
+    type="button"
+    onClick={() => scrollByCard(fillingsSliderRef.current, -1)}
+    className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full border border-white/20 bg-black/50 text-cream hover:border-gold/50 transition flex items-center justify-center"
+    aria-label="Zurück"
+    title="Zurück"
+  >
+    ‹
+  </button>
 
-  onPointerMove={dragFillings.onPointerMove}
-  onPointerUp={(e) => {
-  dragFillings.onPointerUp(e);
-  setFillingsDragging(false);
-}}
-onPointerCancel={(e) => {
-  dragFillings.onPointerCancel(e);
-  setFillingsDragging(false);
-}}
-onPointerLeave={(e) => {
-  dragFillings.onPointerLeave(e);
-  setFillingsDragging(false);
-}}
+  {/* Pfeil rechts */}
+  <button
+    type="button"
+    onClick={() => scrollByCard(fillingsSliderRef.current, 1)}
+    className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full border border-white/20 bg-black/50 text-cream hover:border-gold/50 transition flex items-center justify-center"
+    aria-label="Weiter"
+    title="Weiter"
+  >
+    ›
+  </button>
 
-  onClickCapture={dragFillings.onClickCapture}
-  className={`mt-1 hide-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2 drag-scroll ${
-  fillingsDragging ? "dragging" : ""
-}`}
+  {/* Slider */}
+  <div
+    ref={fillingsSliderRef}
+    onPointerDown={(e) => {
+      dragFillings.onPointerDown(e);
+      setFillingsHint(false);
+      setFillingsDragging(true);
+    }}
+    onPointerMove={dragFillings.onPointerMove}
+    onPointerUp={(e) => {
+      dragFillings.onPointerUp(e);
+      setFillingsDragging(false);
+    }}
+    onPointerCancel={(e) => {
+      dragFillings.onPointerCancel(e);
+      setFillingsDragging(false);
+    }}
+    onPointerLeave={(e) => {
+      dragFillings.onPointerLeave(e);
+      setFillingsDragging(false);
+    }}
+    onClickCapture={dragFillings.onClickCapture}
+    className={`hide-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2 drag-scroll ${
+      fillingsDragging ? "dragging" : ""
+    }`}
+    style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
+  >
+    {fillings.map((f) => (
+      // ... dein Card-Code bleibt wie er ist
+      <motion.article key={f.title} data-card="true" className="snap-start shrink-0 w-[82vw] max-w-[420px] rounded-3xl overflow-hidden border border-white/10 bg-black/30">
+        {/* ... */}
+      </motion.article>
+    ))}
+  </div>
+</div>
 
-  style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
->
 
-              {fillings.map((f) => (
-                <motion.article
-                  key={f.title}
-                  data-card="true"
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.65, ease: "easeOut" }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  className="snap-start shrink-0 w-[82vw] max-w-[420px] rounded-3xl overflow-hidden border border-white/10 bg-black/30"
-                >
-                  {/* Bild (größer) */}
-                  <div className="relative">
-                    <img
-                      src={f.src}
-                      alt={f.title}
-                      loading="lazy"
-                      className="w-full aspect-[9/16] object-cover"
-                    />
-                    <div className="absolute inset-0 pointer-events-none border border-gold/20" />
-                  </div>
-
-                  {/* ✅ Text unter dem Bild */}
-                  <div className="p-6 md:p-7">
-                    <Reveal as="p" className="font-serif text-xl md:text-2xl text-cream">
-                      {f.title}
-                    </Reveal>
-
-                    <div className="mt-3 w-12">
-                      <ShimmerLine className="h-[2px] translate-x-1 opacity-100" />
-                    </div>
-
-                    <Reveal as="p" delay={0.06} className="mt-4 text-sm md:text-base text-cream/75 leading-relaxed">
-                      {f.note}
-                    </Reveal>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
 
             <p className="mt-8 text-xs text-cream/55 text-center leading-relaxed">
               Hinweis: Kombinationen & Verfügbarkeit nach Saison, Design und gewünschter Optik.
