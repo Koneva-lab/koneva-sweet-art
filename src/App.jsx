@@ -1213,6 +1213,8 @@ export default function App() {
   const [legalModal, setLegalModal] = useState(null); // impressum | datenschutz | agb
   const [filter, setFilter] = useState("Alle");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+
   useEffect(() => {
   const onResize = () => {
     if (window.innerWidth >= 768) setMobileMenuOpen(false); // md breakpoint
@@ -1470,42 +1472,57 @@ const prev = useCallback(() => {
 
 
 
-  // Scroll lock + Accessibility: Background inert when modal open
+ // Scroll lock (MENÜ + MODALS) + Accessibility (nur MODALS) — robust
+const scrollLockRef = useRef({ locked: false, overflow: "", paddingRight: "" });
+
 useEffect(() => {
-  const locked = Boolean(legalModal || lightboxOpen || successModal);
+  const lockScroll = Boolean(legalModal || lightboxOpen || successModal || mobileMenuOpen);
+  const inertBg = Boolean(legalModal || lightboxOpen || successModal); // nicht fürs Mobile-Menü
 
   const body = document.body;
   const html = document.documentElement;
-
-  const prevOverflow = body.style.overflow;
-  const prevPaddingRight = body.style.paddingRight;
-
-  // 👉 WICHTIG: Dein Seiteninhalt-Wrapper
   const appRoot = document.getElementById("app-content");
 
-  if (locked) {
+  // ---- LOCK ----
+  if (lockScroll && !scrollLockRef.current.locked) {
+    scrollLockRef.current.locked = true;
+    scrollLockRef.current.overflow = body.style.overflow;
+    scrollLockRef.current.paddingRight = body.style.paddingRight;
+
     const scrollbarWidth = window.innerWidth - html.clientWidth;
     body.style.overflow = "hidden";
     if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+  }
 
-    // ♿ Accessibility: Hintergrund für Screenreader & Tastatur sperren
+  // ---- UNLOCK ----
+  if (!lockScroll && scrollLockRef.current.locked) {
+    body.style.overflow = scrollLockRef.current.overflow || "auto";
+    body.style.paddingRight = scrollLockRef.current.paddingRight || "0px";
+    scrollLockRef.current.locked = false;
+  }
+
+  // ---- INERT (nur Modals/Lightbox/Success) ----
+  if (inertBg) {
     appRoot?.setAttribute("inert", "");
     appRoot?.setAttribute("aria-hidden", "true");
   } else {
-    body.style.overflow = "auto";
-    body.style.paddingRight = "0px";
-
     appRoot?.removeAttribute("inert");
     appRoot?.removeAttribute("aria-hidden");
   }
 
+  // Cleanup nur für Unmount (nicht pro Re-Run)
   return () => {
-    body.style.overflow = prevOverflow || "auto";
-    body.style.paddingRight = prevPaddingRight || "0px";
+    if (scrollLockRef.current.locked) {
+      body.style.overflow = scrollLockRef.current.overflow || "auto";
+      body.style.paddingRight = scrollLockRef.current.paddingRight || "0px";
+      scrollLockRef.current.locked = false;
+    }
     appRoot?.removeAttribute("inert");
     appRoot?.removeAttribute("aria-hidden");
   };
-}, [legalModal, lightboxOpen, successModal]);
+}, [legalModal, lightboxOpen, successModal, mobileMenuOpen]);
+
+
 
 
 // 🔄 Reset Zoom when lightbox image changes
@@ -1521,6 +1538,8 @@ useEffect(() => {
       setLegalModal(null);
       setLightboxOpen(false);
       setSuccessModal(null);
+      setMobileMenuOpen(false);
+
     }
   };
   window.addEventListener("keydown", onKey);
@@ -1814,19 +1833,28 @@ useEffect(() => {
 
           <nav className="p-4">
             <div className="grid gap-2">
-              {navLinks.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={(e) => {
-                    onNavClick(e, l.href);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-cream/85 hover:text-cream hover:border-gold/40 transition"
-                >
-                  {l.label}
-                </a>
-              ))}
+              {navLinks.map((l) => {
+  const isActive = activeSection === l.href;
+
+  return (
+    <a
+      key={l.href}
+      href={l.href}
+      onClick={(e) => {
+        onNavClick(e, l.href);
+        setMobileMenuOpen(false);
+      }}
+      className={`px-4 py-3 rounded-2xl border transition ${
+        isActive
+          ? "border-gold/50 bg-gold/10 text-cream"
+          : "border-white/10 bg-white/5 text-cream/85 hover:text-cream hover:border-gold/40"
+      }`}
+    >
+      <span className={isActive ? "gold-shimmer" : ""}>{l.label}</span>
+    </a>
+  );
+})}
+
             </div>
           </nav>
         </motion.div>
