@@ -189,20 +189,15 @@ const GlobalLuxuryStyles = React.memo(() => (
 
 /* Mobile Anpassungen */
 @media (max-width: 768px){
-  /* HERO: 1 Bild, etwas nach rechts */
-  .hero-bg{
-    background-position: 62% center; /* weiter rechts = größere Zahl */
-  }
+  /* HERO: deutlich nach rechts */
+  .hero-bg{ background-position: 78% center; }
 
-  /* ORDER: 1 Bild, etwas nach links */
-  .order-bg{
-    background-position: 38% center; /* weiter links = kleinere Zahl */
-  }
+  /* BESTELLUNG: deutlich nach links */
+  .order-bg{ background-position: 20% center; }
 
-  /* FAQ: nach rechts */
-  .faq-bg{
-    background-position: 60% center;
-  }
+  /* FAQ: weiter nach rechts */
+  .faq-bg{ background-position: 75% center; }
+}
 }
 
     `}</style>
