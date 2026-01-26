@@ -617,11 +617,14 @@ function usePointerDragSlider(ref, opts = {}) {
   };
 
   const onPointerDown = (e) => {
-    const el = ref.current;
-    if (!el) return;
+  const el = ref.current;
+  if (!el) return;
 
-    // only primary button (mouse), allow touch/pen
-    if (e.pointerType === "mouse" && e.button !== 0) return;
+  // ✅ Touch/Pen: native Swipe erlauben, kein JS-Drag
+  if (e.pointerType !== "mouse") return;
+
+  // Nur linke Maustaste
+  if (e.button !== 0) return;
 
     stateRef.current.down = true;
     stateRef.current.dragging = false;
@@ -1732,13 +1735,13 @@ useEffect(() => {
   const mailtoOrder = buildMailto({
     subject: "Bestellung / Anfrage – Koneva Sweet Art",
     body:
-      "Hallo Koneva Sweet Art,\n\nich möchte eine Bestellung/Anfrage senden.\n\nName:\nDatum/Anlass:\nPersonen (ca.):\nWünsche/Stil:\nBudget (optional):\n\n(Anhänge kann ich in meinem E-Mail-Programm hinzufügen.)\n\nLiebe Grüße",
+      "Hallo Koneva Sweet Art,\n\nich möchte eine Bestellung/Anfrage senden.\n\nName:\nDatum/Anlass:\nPersonen (ca.):\nWünsche/Stil:\nBudget (optional):\n\nLiebe Grüße",
   });
 
   const mailtoContact = buildMailto({
     subject: "Kontakt – Koneva Sweet Art",
     body:
-      "Hallo Koneva Sweet Art,\n\nich habe eine Frage:\n\nName:\nNachricht:\n\n(Anhänge kann ich in meinem E-Mail-Programm hinzufügen.)\n\nLiebe Grüße",
+      "Hallo Koneva Sweet Art,\n\nich habe eine Frage:\n\nName:\nNachricht:\n\nLiebe Grüße",
   });
 
   const backToSection = () => {
@@ -2490,7 +2493,8 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
     className={`hide-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2 drag-scroll ${
       fillingsDragging ? "dragging" : ""
     }`}
-    style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
+    style={{ WebkitOverflowScrolling: "touch", touchAction: "auto" }}
+
   >
     {fillings.map((f) => (
       <motion.article
