@@ -147,58 +147,35 @@ const GlobalLuxuryStyles = React.memo(() => (
       .nav-underline { animation: none !important; }
     }
       /* HERO Background – Desktop */
-.hero-bg {
-  background-size: cover;
-  background-position: center;
-}
-
-/* HERO Background – Mobile */
-@media (max-width: 768px) {
-  .hero-bg {
-    background-position: center 18%;
-    background-size: 125%;
-  }
-}
-
-  .order-bg {
-  background-size: cover;
-  background-position: center;
-}
-
-@media (max-width: 768px) {
-  .order-bg {
-    background-position: center 30%;
-    background-size: 125%;
-  }
-}
-.faq-bg {
-  background-size: cover;
-  background-position: center;
-}
-
-@media (max-width: 768px) {
-  .faq-bg {
-    background-position: center 60%;
-  }
-/* Base: verhindert doppelte Kachelung + hält 1 Bild */
+/* ===== Backgrounds: verhindert doppelte Kachelung + hält 1 Bild ===== */
 .hero-bg, .order-bg, .faq-bg{
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
-/* Mobile Anpassungen */
+/* ===== Mobile Anpassungen ===== */
 @media (max-width: 768px){
-  /* HERO: deutlich nach rechts */
-  .hero-bg{ background-position: 40% center; }
+
+  /* HERO: deutlich nach rechts (fokussiere rechten Bildbereich) */
+  .hero-bg{
+    background-position: 75% 18%;
+    background-size: 125%;
+  }
 
   /* BESTELLUNG: deutlich nach links */
-  .order-bg{ background-position: 60% center; }
+  .order-bg{
+    background-position: 25% 30%;
+    background-size: 125%;
+  }
 
-  /* FAQ: weiter nach rechts */
-  .faq-bg{ background-position: 40% center; }
+  /* FAQ: nach rechts */
+  .faq-bg{
+    background-position: 70% 60%;
+    background-size: cover;
+  }
 }
-}
+
 
     `}</style>
     
@@ -1310,6 +1287,8 @@ const [zoomScale, setZoomScale] = useState(1);
   // Slider refs
   const offersSliderRef = useRef(null);
   const fillingsSliderRef = useRef(null);
+  const gallerySliderRef = useRef(null);
+
 
   // Drag UX state (hint + cursor class)
   const [fillingsHint, setFillingsHint] = useState(true);
@@ -1324,6 +1303,39 @@ const [fillingsDragging, setFillingsDragging] = useState(false);
     const t = setTimeout(() => setFillingsHint(false), 4200);
     return () => clearTimeout(t);
   }, [fillingsHint]);
+
+  // Autoplay (Mobile): Gallery + Fillings
+useEffect(() => {
+  const isMobile = window.innerWidth < 768;
+  const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+  if (!isMobile || reduced) return;
+
+  const tick = (ref) => {
+    const el = ref.current;
+    if (!el) return;
+
+    // Wenn Nutzer gerade draggt / scrollt: kurz aussetzen
+    if (el.matches(":active")) return;
+
+    const max = el.scrollWidth - el.clientWidth;
+    const nearEnd = el.scrollLeft >= max - 4;
+
+    if (nearEnd) {
+      el.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      scrollByCard(el, 1);
+    }
+  };
+
+  const id = setInterval(() => {
+    tick(gallerySliderRef);
+    tick(fillingsSliderRef);
+  }, 3200);
+
+  return () => clearInterval(id);
+}, []);
+
 
   const navLinks = useMemo(
     () => [
@@ -2300,26 +2312,61 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {filtered.map((g, idx) => (
-              <button
-                key={`${g.src}-${idx}`}
-                type="button"
-                onClick={() => openLightbox(idx)}
-                className="text-left group"
-              >
-                <div className="relative overflow-hidden border border-white/10 bg-white/5 rounded-2xl">
-                  <img
-                    src={g.src}
-                    alt={g.alt}
-                    loading="lazy"
-                    className="w-full aspect-[9/16] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  />
-                  <div className="absolute inset-0 border border-gold/40 opacity-0 group-hover:opacity-100 transition rounded-2xl" />
-                </div>
-              </button>
-            ))}
-          </div>
+          {/* MOBILE: Slider (wie Angebote) */}
+<div className="md:hidden">
+  <div
+    ref={gallerySliderRef}
+    className="hide-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2"
+    style={{ WebkitOverflowScrolling: "touch" }}
+  >
+    {filtered.map((g, idx) => (
+      <button
+        key={`${g.src}-${idx}`}
+        type="button"
+        onClick={() => openLightbox(idx)}
+        data-card="true"
+        className="snap-start shrink-0 w-[78vw] max-w-[360px] text-left"
+      >
+        <div className="relative overflow-hidden border border-white/10 bg-white/5 rounded-2xl">
+          <img
+            src={g.src}
+            alt={g.alt}
+            loading="lazy"
+            className="w-full aspect-[9/16] object-cover"
+          />
+          <div className="absolute inset-0 border border-gold/40 opacity-0 hover:opacity-100 transition rounded-2xl" />
+        </div>
+      </button>
+    ))}
+  </div>
+
+  <p className="mt-6 text-center text-xs text-cream/55 leading-relaxed">
+    Tipp: Wische nach links/rechts – wie Stories.
+  </p>
+</div>
+
+{/* DESKTOP: Grid bleibt */}
+<div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-10">
+  {filtered.map((g, idx) => (
+    <button
+      key={`${g.src}-${idx}`}
+      type="button"
+      onClick={() => openLightbox(idx)}
+      className="text-left group"
+    >
+      <div className="relative overflow-hidden border border-white/10 bg-white/5 rounded-2xl">
+        <img
+          src={g.src}
+          alt={g.alt}
+          loading="lazy"
+          className="w-full aspect-[9/16] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+        />
+        <div className="absolute inset-0 border border-gold/40 opacity-0 group-hover:opacity-100 transition rounded-2xl" />
+      </div>
+    </button>
+  ))}
+</div>
+
 
 <div className="mt-16 text-center">
   <a
@@ -2455,7 +2502,7 @@ onPointerLeave={(e) => {
                       src={f.src}
                       alt={f.title}
                       loading="lazy"
-                      className="w-full h-full object-cover"
+                      className="w-full aspect-[9/16] object-cover"
                     />
                     <div className="absolute inset-0 pointer-events-none border border-gold/20" />
                   </div>
