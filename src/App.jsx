@@ -180,10 +180,33 @@ const GlobalLuxuryStyles = React.memo(() => (
   .faq-bg {
     background-position: center 60%;
   }
+/* Base: verhindert doppelte Kachelung + hält 1 Bild */
+.hero-bg, .order-bg, .faq-bg{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
+/* Mobile Anpassungen */
+@media (max-width: 768px){
+  /* HERO: 1 Bild, etwas nach rechts */
+  .hero-bg{
+    background-position: 62% center; /* weiter rechts = größere Zahl */
+  }
+
+  /* ORDER: 1 Bild, etwas nach links */
+  .order-bg{
+    background-position: 38% center; /* weiter links = kleinere Zahl */
+  }
+
+  /* FAQ: nach rechts */
+  .faq-bg{
+    background-position: 60% center;
+  }
+}
 
     `}</style>
+    
 ));
 
 
@@ -1904,10 +1927,9 @@ useEffect(() => {
       <section
   id="top"
   className="hero-bg min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 relative"
-  style={{
-    backgroundImage: `url(${HERO_BG})`,
-  }}
+  style={{ backgroundImage: `url(${HERO_BG})` }}
 >
+
 
       
         <div className="absolute inset-0 bg-black/60" />
@@ -2103,10 +2125,9 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
       <section
   id="order"
   className="order-bg py-24 md:py-40 px-6 relative"
-  style={{
-    backgroundImage: `url(${ORDER_BG})`,
-  }}
+  style={{ backgroundImage: `url(${ORDER_BG})` }}
 >
+
 
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 max-w-3xl mx-auto">
@@ -2536,10 +2557,9 @@ onPointerLeave={(e) => {
       <section
   id="faq"
   className="faq-bg py-24 md:py-40 px-6 relative"
-  style={{
-    backgroundImage: `url(${FAQ_BG})`,
-  }}
+  style={{ backgroundImage: `url(${FAQ_BG})` }}
 >
+
 
         <div className="absolute inset-0 bg-black/65" />
         <div className="relative z-10 max-w-4xl mx-auto">
