@@ -1317,7 +1317,8 @@ useEffect(() => {
     if (shouldPause()) return;
 
     // Wenn Finger noch drauf ist: nicht auto scrollen
-    if (el.matches(":active")) return;
+    if (document.activeElement === el) return; // optional
+
 
     const max = el.scrollWidth - el.clientWidth;
     const nearEnd = el.scrollLeft >= max - 4;
@@ -2317,10 +2318,10 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
   ref={gallerySliderRef}
   onTouchStart={markUserInteracted}
   onPointerDown={markUserInteracted}
-  onScroll={markUserInteracted}
   className="hide-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2"
   style={{ WebkitOverflowScrolling: "touch" }}
 >
+
 
     {filtered.map((g, idx) => (
       <button
@@ -2440,9 +2441,7 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
     </span>
   </motion.div>
 )}
-            <div
-  ref={fillingsSliderRef}
-  className="relative mt-1">
+            <div className="relative mt-1">
   {/* Pfeil links */}
   <button
     type="button"
@@ -2465,11 +2464,12 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
     ›
   </button>
 
-  {/* Slider */}
+  {/* Slider (NUR HIER ref!) */}
   <div
     ref={fillingsSliderRef}
     onPointerDown={(e) => {
       dragFillings.onPointerDown(e);
+      markUserInteracted();          // ✅ wichtig fürs Autoplay-Pause-System
       setFillingsHint(false);
       setFillingsDragging(true);
     }}
@@ -2493,15 +2493,21 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
     style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
   >
     {fillings.map((f) => (
-      // ... dein Card-Code bleibt wie er ist
-      <motion.article key={f.title} data-card="true" className="snap-start shrink-0 w-[82vw] max-w-[420px] rounded-3xl overflow-hidden border border-white/10 bg-black/30">
-        {/* ... */}
+      <motion.article
+        key={f.title}
+        data-card="true"
+        className="snap-start shrink-0 w-[82vw] max-w-[420px] rounded-3xl overflow-hidden border border-white/10 bg-black/30"
+      >
+        {/* WICHTIG: hier muss dein Bild wirklich drin sein */}
+        <img src={f.src} alt={f.title} className="w-full aspect-[9/16] object-cover" loading="lazy" />
+        <div className="p-5">
+          <p className="font-serif text-xl text-cream">{f.title}</p>
+          <p className="mt-1 text-cream/70 text-sm">{f.note}</p>
+        </div>
       </motion.article>
     ))}
   </div>
 </div>
-
-
 
             <p className="mt-8 text-xs text-cream/55 text-center leading-relaxed">
               Hinweis: Kombinationen & Verfügbarkeit nach Saison, Design und gewünschter Optik.
