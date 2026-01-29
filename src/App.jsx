@@ -1825,7 +1825,7 @@ useEffect(() => {
       <header className="fixed top-0 left-0 right-0 z-40 bg-black/55 backdrop-blur border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <a href="#top" onClick={(e) => onNavClick(e, "#top")} className="flex items-center gap-4">
-            <img src="/images/logo.png" alt={`${brand} Logo`} className="h-14 md:h-16 w-auto" />
+            <img src="/images/logo.jpg" alt={`${brand} Logo`} className="h-14 md:h-16 w-auto" />
             <span className="hidden sm:inline font-serif tracking-wide text-lg brand-shimmer">{brand}</span>
           </a>
 
