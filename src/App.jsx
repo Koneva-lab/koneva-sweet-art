@@ -2005,14 +2005,13 @@ useEffect(() => {
               </motion.div>
 
               <div className="rounded-2xl bg-black/20 border border-gold/15 p-6 md:p-7">
-                <RevealLines
-                  className="text-cream/75 leading-[1.95] whitespace-pre-line"
-                  text={`Ich bin die Gründerin von Koneva Sweet Art. Geboren in Lettland, geprägt von Kunst, Form und Material – und seit vielen Jahren in Deutschland zu Hause. Meine kreative Reise begann nicht in der Backstube, sondern in der Keramik und Architektur. Über 25 Jahre Berufserfahrung haben meinen Blick für Proportion, Statik, Oberfläche und Detail geschärft. Ich denke in Formen, Schichten und Strukturen – immer mit einem klaren ästhetischen Anspruch. Parallel dazu habe ich meine zweite große Leidenschaft vertieft: das Konditorhandwerk. Ich habe es an einer professionellen Konditorschule erlernt und bin heute zugelassene Konditorin. Für mich ist Konditorei Kunst in essbarer Form. Ein Feld ohne Grenzen. Ein Raum für Experimente, neue Techniken und ständige Weiterentwicklung.
+                <p className="text-cream/75 leading-[1.95] whitespace-pre-line">
+                  {`Ich bin die Gründerin von Koneva Sweet Art. Geboren in Lettland, geprägt von Kunst, Form und Material – und seit vielen Jahren in Deutschland zu Hause. Meine kreative Reise begann nicht in der Backstube, sondern in der Keramik und Architektur. Über 25 Jahre Berufserfahrung haben meinen Blick für Proportion, Statik, Oberfläche und Detail geschärft. Ich denke in Formen, Schichten und Strukturen – immer mit einem klaren ästhetischen Anspruch. Parallel dazu habe ich meine zweite große Leidenschaft vertieft: das Konditorhandwerk. Ich habe es an einer professionellen Konditorschule erlernt und bin heute zugelassene Konditorin. Für mich ist Konditorei Kunst in essbarer Form. Ein Feld ohne Grenzen. Ein Raum für Experimente, neue Techniken und ständige Weiterentwicklung.
 Ich arbeite präzise, akribisch, mit großer Sorgfalt und Liebe zum Detail. Qualität ist für mich kein Anspruch – sondern Voraussetzung.
 Ich spezialisiere mich auf exklusive Design-Torten für Hochzeiten, Events und besondere Momente.
 Jede Torte entsteht individuell – als Spiegel einer Idee, einer Stimmung, eines Anlasses.
 Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und meine Leidenschaft für Tortenkunst.`}
-                />
+                </p>
               </div>
             </div>
           </div>
