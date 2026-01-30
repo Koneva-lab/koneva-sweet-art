@@ -1962,7 +1962,9 @@ useEffect(() => {
               autoPlay
               muted
               playsInline
-              preload="metadata"
+              preload="auto"
+              fetchpriority="high"
+
 
             />
           </motion.div>
