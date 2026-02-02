@@ -4,6 +4,17 @@ import React, { useEffect, useMemo, useRef, useState, useCallback } from "react"
 
 import { motion, AnimatePresence } from "framer-motion";
 
+function trackEvent(eventName, params = {}) {
+  // läuft nur im Browser, nicht beim Build
+  if (typeof window === "undefined") return;
+
+  // gtag gibt es nur, wenn GA geladen + (ggf.) Consent ok ist
+  if (typeof window.gtag !== "function") return;
+
+  window.gtag("event", eventName, params);
+}
+
+
 /* =========================
    LINKS
    ========================= */
@@ -1703,6 +1714,13 @@ useEffect(() => {
     }
 
     form.reset();
+
+    // ✅ HIER: Event an Google Analytics senden
+trackEvent("order_submit", {
+  event_category: "conversion",
+  event_label: "Bestellformular",
+});
+
     playSuccessChime();
     setSuccessModal("order");
   };
@@ -1728,6 +1746,12 @@ useEffect(() => {
     }
 
     form.reset();
+
+    // ✅ HIER: Event an Google Analytics senden
+trackEvent("contact_submit", {
+  event_category: "engagement",
+  event_label: "Kontaktformular",
+});
     playSuccessChime();
     setSuccessModal("contact");
   };
@@ -1964,9 +1988,12 @@ useEffect(() => {
               playsInline
               preload="auto"
               fetchpriority="high"
+>
+  <source src="/videos/hero.webm" type="video/webm" />
+  <source src="/videos/hero.mp4" type="video/mp4" />
+</video>
 
-
-            />
+            
           </motion.div>
 
           <Reveal as="h1" className="font-serif text-4xl md:text-6xl leading-tight mb-6 text-cream">
