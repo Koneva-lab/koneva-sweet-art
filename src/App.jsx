@@ -14,6 +14,21 @@ function trackEvent(eventName, params = {}) {
   window.gtag("event", eventName, params);
 }
 
+function enableAnalytics() {
+  if (!window.gtag) return;
+
+  window.gtag("consent", "update", {
+    analytics_storage: "granted",
+  });
+
+  // Debug nur lokal (hilft beim Testen)
+  const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+
+  window.gtag("event", "page_view");
+}
+
 
 /* =========================
    LINKS
@@ -346,11 +361,12 @@ const SectionTitle = ({ kicker, title }) => (
   </div>
 );
 
-const ExternalLink = ({ href, children, className = "" }) => (
-  <a href={href} target="_blank" rel="noreferrer" className={className}>
+const ExternalLink = ({ href, children, className = "", ...props }) => (
+  <a href={href} target="_blank" rel="noreferrer" className={className} {...props}>
     {children}
   </a>
 );
+
 
 /* =========================
    Simple Icons (inline SVG)
@@ -1725,6 +1741,11 @@ trackEvent("order_submit", {
     setSuccessModal("order");
   };
 
+  trackEvent("order_submit_success", {
+  form: "order",
+});
+
+
   // CONTACT submit
   const handleContactSubmit = async (e) => {
     e.preventDefault();
@@ -1755,6 +1776,11 @@ trackEvent("contact_submit", {
     playSuccessChime();
     setSuccessModal("contact");
   };
+  
+  trackEvent("contact_submit_success", {
+  form: "contact",
+});
+
 
   const mailtoOrder = buildMailto({
     subject: "Bestellung / Anfrage – Koneva Sweet Art",
@@ -2183,14 +2209,27 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <a
                 href={ORDER_PDF_URL}
-                className="px-5 py-3 rounded-full bg-gold text-blackSoft text-sm tracking-wide text-center font-medium"
                 download
+  onClick={() =>
+    trackEvent("pdf_download", {
+      file: "bestellformular.pdf",
+      section: "order",
+    })
+  }
+                className="px-5 py-3 rounded-full bg-gold text-blackSoft text-sm tracking-wide text-center font-medium"
+                
               >
                 PDF herunterladen
               </a>
 
               <ExternalLink
                 href={WHATSAPP_URL}
+
+                onClick={() =>
+    trackEvent("whatsapp_click", {
+      section: "order",
+    })
+  }
                 className="px-5 py-3 rounded-full border border-white/10 text-cream text-sm tracking-wide text-center hover:border-gold/40 transition"
               >
                 Per WhatsApp senden
@@ -2408,6 +2447,12 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
     href="https://www.instagram.com/koneva_sweet_art/"
     target="_blank"
     rel="noreferrer"
+
+    onClick={() =>
+    trackEvent("instagram_click", {
+      section: "gallery",
+    })
+  }
     className="
       inline-flex items-center justify-center gap-3
       px-10 py-5
@@ -2581,6 +2626,12 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
     href="https://www.instagram.com/koneva_sweet_art/"
     target="_blank"
     rel="noreferrer"
+
+    onClick={() =>
+    trackEvent("instagram_click", {
+      section: "video",
+    })
+  }
     className="
       inline-flex items-center justify-center gap-3
       px-10 py-5
