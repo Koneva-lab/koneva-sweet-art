@@ -371,7 +371,7 @@ const ExternalLink = ({ href, children, className = "", ...props }) => (
 /* =========================
    Simple Icons (inline SVG)
    ========================= */
-function IconLink({ href, label, children, title }) {
+function IconLink({ href, label, children, title, onClick }) {
   return (
     <a
       href={href}
@@ -389,6 +389,7 @@ function IconLink({ href, label, children, title }) {
     </a>
   );
 }
+
 
 const IconInstagram = (props) => (
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" {...props}>
@@ -1763,6 +1764,10 @@ useEffect(() => {
 
     form.reset();
 
+    trackEvent("order_submit_success", {
+  form: "order",
+});
+
     // ✅ HIER: Event an Google Analytics senden
 trackEvent("order_submit", {
   event_category: "conversion",
@@ -1773,9 +1778,7 @@ trackEvent("order_submit", {
     setSuccessModal("order");
   };
 
-  trackEvent("order_submit_success", {
-  form: "order",
-});
+
 
 
   // CONTACT submit
@@ -1800,6 +1803,10 @@ trackEvent("order_submit", {
 
     form.reset();
 
+    trackEvent("contact_submit_success", {
+  form: "contact",
+});
+
     // ✅ HIER: Event an Google Analytics senden
 trackEvent("contact_submit", {
   event_category: "engagement",
@@ -1809,10 +1816,6 @@ trackEvent("contact_submit", {
     setSuccessModal("contact");
   };
   
-  trackEvent("contact_submit_success", {
-  form: "contact",
-});
-
 
   const mailtoOrder = buildMailto({
     subject: "Bestellung / Anfrage – Koneva Sweet Art",
