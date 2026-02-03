@@ -379,6 +379,7 @@ function IconLink({ href, label, children, title }) {
       rel="noreferrer"
       aria-label={label}
       title={title || label}
+      onClick={onClick}
       className="inline-flex items-center justify-center
                  w-14 h-14 md:w-16 md:h-16
                  rounded-full border border-white/15 bg-white/5
@@ -1558,14 +1559,45 @@ useEffect(() => {
   const openLightbox = (idx) => {
     setLightboxIndex(idx);
     setLightboxOpen(true);
-  };
+
+   const item = filtered[idx];
+  trackEvent("gallery_lightbox_open", {
+    index: idx,
+    category: item?.cat || "",
+    src: item?.src || "",
+  });
+};
   const next = useCallback(() => {
-  setLightboxIndex((i) => (i + 1) % (filtered.length || 1));
-}, [filtered.length]);
+  setLightboxIndex((i) => {
+    const nextIndex = (i + 1) % (filtered.length || 1);
+    const item = filtered[nextIndex];
+
+    trackEvent("gallery_lightbox_next", {
+      index: nextIndex,
+      category: item?.cat || "",
+      src: item?.src || "",
+    });
+
+    return nextIndex;
+  });
+}, [filtered]);
+
 
 const prev = useCallback(() => {
-  setLightboxIndex((i) => (i - 1 + (filtered.length || 1)) % (filtered.length || 1));
-}, [filtered.length]);
+  setLightboxIndex((i) => {
+    const prevIndex = (i - 1 + (filtered.length || 1)) % (filtered.length || 1);
+    const item = filtered[prevIndex];
+
+    trackEvent("gallery_lightbox_prev", {
+      index: prevIndex,
+      category: item?.cat || "",
+      src: item?.src || "",
+    });
+
+    return prevIndex;
+  });
+}, [filtered]);
+
 
 
 
@@ -2237,6 +2269,11 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
 
               <a
                 href={mailtoOrder}
+                 onClick={() =>
+    trackEvent("email_click", {
+      location: "order_section",
+    })
+  }
                 className="px-5 py-3 rounded-full border border-white/10 text-cream text-sm tracking-wide text-center hover:border-gold/40 transition"
               >
                 Per E-Mail senden
@@ -2350,6 +2387,11 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
             <div className="pt-2 text-center">
               <a
                 href={mailtoOrder}
+                onClick={() =>
+    trackEvent("email_click", {
+      location: "order_section_direct",
+    })
+  }
                 className="inline-block text-sm text-cream/85 hover:text-cream relative after:block after:h-px after:bg-gold after:mt-2 after:translate-x-1"
               >
                 E-Mail direkt senden (Anhänge möglich)
@@ -2788,6 +2830,11 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
             <div className="pt-2 text-center">
               <a
                 href={mailtoContact}
+                onClick={() =>
+    trackEvent("email_click", {
+      location: "contact_section_direct",
+    })
+  }
                 className="inline-block text-sm text-cream/85 hover:text-cream relative after:block after:h-px after:bg-gold after:mt-2 after:translate-x-1"
               >
                 E-Mail direkt senden (Anhänge möglich)
@@ -2810,10 +2857,23 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
             <IconLink href={PINTEREST_URL} label="Pinterest">
               <IconPinterest className="text-cream" />
             </IconLink>
-            <IconLink href={WHATSAPP_URL} label="WhatsApp">
+            <IconLink href={WHATSAPP_URL} label="WhatsApp"
+              onClick={() =>
+    trackEvent("whatsapp_click", {
+      location: "footer_icon",
+    })
+  }
+>
               <IconWhatsApp className="text-cream" />
             </IconLink>
-            <IconLink href={`mailto:${EMAIL_ADDRESS}`} label="E-Mail">
+            <IconLink href={`mailto:${EMAIL_ADDRESS}`} label="E-Mail"
+              onClick={() =>
+    trackEvent("email_click", {
+      location: "footer_icon",
+    })
+  }
+  >
+
               <IconMail className="text-cream" />
             </IconLink>
 
