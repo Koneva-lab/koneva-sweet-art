@@ -1892,11 +1892,14 @@ trackEvent("contact_submit", {
 
       {/* Cookie Banner */}
       <CookieBanner
-        onConsentChange={(c) => setCookieConsent(c)}
-        registerOpenSettings={(fn) => {
-          cookieOpenRef.current = fn;
-        }}
-      />
+  onConsentChange={(c) => {
+    setCookieConsent(c);
+    if (c?.analytics) enableAnalytics();
+  }}
+  registerOpenSettings={(fn) => {
+    cookieOpenRef.current = fn;
+  }}
+/>
 
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-40 bg-black/55 backdrop-blur border-b border-white/10">
