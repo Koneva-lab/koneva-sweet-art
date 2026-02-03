@@ -1800,6 +1800,7 @@ useEffect(() => {
   
     // ✅ HIER: Event an Google Analytics senden
 trackEvent("contact_submit", {
+  form: "contact",
   event_category: "engagement",
   event_label: "Kontaktformular",
 });
