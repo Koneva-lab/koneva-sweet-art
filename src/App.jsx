@@ -1764,12 +1764,8 @@ useEffect(() => {
 
     form.reset();
 
-    trackEvent("order_submit_success", {
+    trackEvent("order_submit", {
   form: "order",
-});
-
-    // ✅ HIER: Event an Google Analytics senden
-trackEvent("order_submit", {
   event_category: "conversion",
   event_label: "Bestellformular",
 });
@@ -1777,8 +1773,6 @@ trackEvent("order_submit", {
     playSuccessChime();
     setSuccessModal("order");
   };
-
-
 
 
   // CONTACT submit
@@ -1803,10 +1797,7 @@ trackEvent("order_submit", {
 
     form.reset();
 
-    trackEvent("contact_submit_success", {
-  form: "contact",
-});
-
+  
     // ✅ HIER: Event an Google Analytics senden
 trackEvent("contact_submit", {
   event_category: "engagement",
