@@ -1511,6 +1511,15 @@ const faqIndexByQ = useMemo(() => {
       { src: "/images/gallery4.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
       { src: "/images/gallery5.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
       { src: "/images/gallery6.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery7.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery8.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery9.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery10.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery11.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery12.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery13.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery14.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+
 
       { src: "/images/gallery100.jpg", cat: "Design-Torte", alt: "Design-Torte" },
       { src: "/images/gallery101.jpg", cat: "Design-Torte", alt: "Design-Torte" },
@@ -2037,7 +2046,6 @@ trackEvent("contact_submit", {
 
             <video
               className="w-full h-full object-cover"
-              src={HERO_VIDEO_SRC}
               poster={HERO_VIDEO_POSTER}
               autoPlay
               muted
