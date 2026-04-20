@@ -1519,6 +1519,9 @@ const faqIndexByQ = useMemo(() => {
       { src: "/images/gallery12.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
       { src: "/images/gallery13.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
       { src: "/images/gallery14.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery15.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery16.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery17.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
 
 
       { src: "/images/gallery100.jpg", cat: "Design-Torte", alt: "Design-Torte" },
