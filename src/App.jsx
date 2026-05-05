@@ -1545,6 +1545,8 @@ const faqIndexByQ = useMemo(() => {
       { src: "/images/gallery119.jpg", cat: "Design-Torte", alt: "Design-Torte" },
       { src: "/images/gallery120.jpg", cat: "Design-Torte", alt: "Design-Torte" },
       { src: "/images/gallery121.jpg", cat: "Design-Torte", alt: "Design-Torte" },
+      { src: "/images/gallery122.jpg", cat: "Design-Torte", alt: "Design-Torte" },
+      { src: "/images/gallery123.jpg", cat: "Design-Torte", alt: "Design-Torte" },
 
       { src: "/images/gallery200.jpg", cat: "Sweet Table", alt: "Sweet Table" },
       { src: "/images/gallery201.jpg", cat: "Sweet Table", alt: "Sweet Table" },
@@ -1860,6 +1862,7 @@ trackEvent("contact_submit", {
 { src: "/images/fillings/filling13.jpg", title: "Mandarinen-Tartellete", note: "fruchtig, samtig" },
 { src: "/images/fillings/filling14.jpg", title: "Zitronen-Tartellete", note: "fruchtig, samtig" },
 { src: "/images/fillings/filling15.jpg", title: "Aprikosen-Cognac-Tartellete", note: "fruchtig, samtig" },
+{ src: "/images/fillings/filling16.jpg", title: "Füllungen" },
     ],
     []
   );
@@ -2944,7 +2947,7 @@ E-Mail: koneva_sweet_art@yahoo.com
 
 Umsatzsteuer-ID
 Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:
-[USt-IdNr. eintragen, falls vorhanden]
+DE302012517
 
 Aufsichtsbehörde 
 Handwerkskammer Karlsruhe
