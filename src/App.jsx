@@ -2925,6 +2925,25 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
             </button>
           </div>
 
+<div className="flex justify-center">
+  <div className="p-4 rounded-2xl border border-gold/20 bg-white/[0.02]">
+    <a
+      href="https://www.weddingnettwork.de/karlsruhe"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Wedding Nettwork Karlsruhe – Verifiziertes Mitglied 2026"
+      className="block transition hover:scale-105 duration-300"
+    >
+      <img
+        src="https://xtnhgznnohlyoqmfekrg.supabase.co/storage/v1/object/public/member-badges/2026/karlsruhe.png?v=1780064219994"
+        alt="Wedding Nettwork Karlsruhe – Verifiziertes Mitglied 2026"
+        className="w-[140px] md:w-[180px] h-auto"
+        loading="lazy"
+      />
+    </a>
+  </div>
+</div>
+
           <div className="text-center text-xs text-cream/55">© 2026 {brand} · Alle Rechte vorbehalten</div>
         </div>
       </footer>
