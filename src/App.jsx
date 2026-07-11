@@ -1522,6 +1522,13 @@ const faqIndexByQ = useMemo(() => {
       { src: "/images/gallery15.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
       { src: "/images/gallery16.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
       { src: "/images/gallery17.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery18.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery19.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery20.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery21.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery22.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery23.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
+      { src: "/images/gallery24.jpg", cat: "Hochzeitstorte", alt: "Hochzeitstorte" },
 
 
       { src: "/images/gallery100.jpg", cat: "Design-Torte", alt: "Design-Torte" },
@@ -1547,6 +1554,7 @@ const faqIndexByQ = useMemo(() => {
       { src: "/images/gallery121.jpg", cat: "Design-Torte", alt: "Design-Torte" },
       { src: "/images/gallery122.jpg", cat: "Design-Torte", alt: "Design-Torte" },
       { src: "/images/gallery123.jpg", cat: "Design-Torte", alt: "Design-Torte" },
+      { src: "/images/gallery124.jpg", cat: "Design-Torte", alt: "Design-Torte" },
 
       { src: "/images/gallery200.jpg", cat: "Sweet Table", alt: "Sweet Table" },
       { src: "/images/gallery201.jpg", cat: "Sweet Table", alt: "Sweet Table" },
