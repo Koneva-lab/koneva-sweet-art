@@ -1881,6 +1881,9 @@ trackEvent("contact_submit", {
       { src: "/videos/video1.mp4", poster: "/images/videos/poster1.jpg", title: "Finisch · Detail" },
       { src: "/videos/video2.mp4", poster: "/images/videos/poster2.jpg", title: "Finisch · Texture" },
       { src: "/videos/video3.mp4", poster: "/images/videos/poster3.jpg", title: "Finisch · Detail" },
+      { src: "/videos/video4.mp4", poster: "/images/videos/poster3.jpg", title: "Finisch · Detail" },
+      { src: "/videos/video5.mp4", poster: "/images/videos/poster3.jpg", title: "Finisch · Detail" },
+      { src: "/videos/video6.mp4", poster: "/images/videos/poster3.jpg", title: "Finisch · Detail" },
     ],
     []
   );
