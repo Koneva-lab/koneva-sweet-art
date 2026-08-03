@@ -1310,6 +1310,7 @@ const [zoomScale, setZoomScale] = useState(1);
   const offersSliderRef = useRef(null);
   const fillingsSliderRef = useRef(null);
   const gallerySliderRef = useRef(null);
+  const toertchenSliderRef = useRef(null);
   // Autoplay Pause nach User-Interaktion (Mobile)
 const pauseAutoUntilRef = useRef(0);
 
@@ -1324,6 +1325,14 @@ const markUserInteracted = () => {
 const [fillingsDragging, setFillingsDragging] = useState(false);
 
   const dragFillings = usePointerDragSlider(fillingsSliderRef, { snap: true, dragThreshold: 6 });
+
+  const [toertchenHint, setToertchenHint] = useState(true);
+const [toertchenDragging, setToertchenDragging] = useState(false);
+
+const dragToertchen = usePointerDragSlider(toertchenSliderRef, {
+  snap: true,
+  dragThreshold: 6,
+});
   
 
   useEffect(() => {
@@ -1332,6 +1341,14 @@ const [fillingsDragging, setFillingsDragging] = useState(false);
     const t = setTimeout(() => setFillingsHint(false), 4200);
     return () => clearTimeout(t);
   }, [fillingsHint]);
+
+  useEffect(() => {
+  if (!toertchenHint) return;
+
+  const t = setTimeout(() => setToertchenHint(false), 4200);
+
+  return () => clearTimeout(t);
+}, [toertchenHint]);
 
   // Autoplay (Mobile): Gallery + Fillings
 useEffect(() => {
@@ -1361,7 +1378,8 @@ useEffect(() => {
 
   const id = setInterval(() => {
     tick(gallerySliderRef);
-    tick(fillingsSliderRef);
+tick(fillingsSliderRef);
+tick(toertchenSliderRef);
   }, 3200);
 
   return () => clearInterval(id);
@@ -1376,6 +1394,7 @@ useEffect(() => {
       { href: "#order", label: "Bestellung" },
       { href: "#gallery", label: "Galerie" },
       { href: "#fillings", label: "Füllungen" },
+      { href: "#toertchen", label: "Törtchen" },
       { href: "#videos", label: "Videos" },
       { href: "#faq", label: "FAQ" },
       { href: "#contact", label: "Kontakt" },
@@ -1874,6 +1893,19 @@ trackEvent("contact_submit", {
     ],
     []
   );
+
+  // Törtchen
+  const toertchen = useMemo(
+    () => [
+      { src: "/images/toertchen/toertchen1.jpg", title: "Zitrone", note: "intensiv, fein" },
+      { src: "/images/toertchen/toertchen2.jpg", title: "Kaffee-Baileys", note: "karamellig, samtig" },
+      { src: "/images/toertchen/toertchen3.jpg", title: "Pistazie", note: "nussig, samtig" },
+      { src: "/images/toertchen/toertchen4.jpg", title: "Himbeere", note: "fruchtig, samtig" },
+      { src: "/images/toertchen/toertchen4.jpg", title: "Mango", note: "fruchtig, samtig" },
+],
+    []
+  );
+
 
   // Videos
   const videos = useMemo(
@@ -2657,6 +2689,114 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
           </div>
         </div>
       </section>
+
+      {/* TÖRTCHEN */}
+<div id="toertchen" className="mt-16 border border-white/10 bg-white/5 rounded-2xl p-6 md:p-8">
+
+  <div className="text-center">
+    <Reveal as="p" className="uppercase tracking-[0.3em] text-xs text-gold">
+      Auswahl
+    </Reveal>
+
+    <Reveal as="h2" className="text-3xl md:text-4xl font-serif text-cream mt-3">
+      Törtchen
+    </Reveal>
+
+    <div className="mt-5 flex justify-center">
+      <ShimmerLine className="w-16 h-[2px] translate-x-1 opacity-100" />
+    </div>
+  </div>
+
+  {toertchenHint && (
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="mt-4 mb-3 text-center"
+    >
+      <span className="inline-flex items-center gap-2 text-xs text-cream/65 border border-white/10 bg-black/30 px-4 py-2 rounded-full">
+        ⇆ Drag/Swipe für mehr Törtchen
+      </span>
+    </motion.div>
+  )}
+
+  <div className="relative mt-1">
+
+    <button
+      type="button"
+      onClick={() => scrollByCard(toertchenSliderRef.current, -1)}
+      className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full border border-white/20 bg-black/50 text-cream hover:border-gold/50 transition flex items-center justify-center"
+    >
+      ‹
+    </button>
+
+    <button
+      type="button"
+      onClick={() => scrollByCard(toertchenSliderRef.current, 1)}
+      className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full border border-white/20 bg-black/50 text-cream hover:border-gold/50 transition flex items-center justify-center"
+    >
+      ›
+    </button>
+
+    <div
+      ref={toertchenSliderRef}
+      onPointerDown={(e) => {
+        dragToertchen.onPointerDown(e);
+        markUserInteracted();
+        setToertchenHint(false);
+        setToertchenDragging(true);
+      }}
+      onPointerMove={dragToertchen.onPointerMove}
+      onPointerUp={(e) => {
+        dragToertchen.onPointerUp(e);
+        setToertchenDragging(false);
+      }}
+      onPointerCancel={(e) => {
+        dragToertchen.onPointerCancel(e);
+        setToertchenDragging(false);
+      }}
+      onPointerLeave={(e) => {
+        dragToertchen.onPointerLeave(e);
+        setToertchenDragging(false);
+      }}
+      onClickCapture={dragToertchen.onClickCapture}
+      className={`hide-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-px-6 pb-2 drag-scroll ${
+        toertchenDragging ? "dragging" : ""
+      }`}
+      style={{ WebkitOverflowScrolling: "touch", touchAction: "auto" }}
+    >
+      {toertchen.map((t) => (
+        <motion.article
+          key={t.title}
+          data-card="true"
+          className="snap-start shrink-0 w-[82vw] max-w-[420px] rounded-3xl overflow-hidden border border-white/10 bg-black/30"
+        >
+          <img
+            src={t.src}
+            alt={t.title}
+            className="w-full aspect-[9/16] object-cover"
+            loading="lazy"
+          />
+
+          <div className="p-5">
+            <p className="font-serif text-xl text-cream">
+              {t.title}
+            </p>
+
+            <p className="mt-1 text-cream/70 text-sm">
+              {t.note}
+            </p>
+          </div>
+        </motion.article>
+      ))}
+    </div>
+  </div>
+
+  <p className="mt-8 text-xs text-cream/55 text-center leading-relaxed">
+    Individuell dekorierte Törtchen – perfekt für Sweet Tables, Hochzeiten und besondere Anlässe.
+  </p>
+
+</div>
 
       {/* VIDEOS */}
       <section id="videos" className="py-24 md:py-40 px-6 bg-black">
