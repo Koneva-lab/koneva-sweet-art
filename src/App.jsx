@@ -1735,7 +1735,7 @@ useEffect(() => {
 
   // Scrollspy via IntersectionObserver (robust)
   useEffect(() => {
-    const ids = ["top", "about", "offers", "order", "gallery", "fillings", "videos", "faq", "contact"];
+    const ids = ["top", "about", "offers", "order", "gallery", "fillings", "toertchen", "videos", "faq", "contact"];
     const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
     if (!els.length) return;
 
@@ -1901,7 +1901,7 @@ trackEvent("contact_submit", {
       { src: "/images/toertchen/toertchen2.jpg", title: "Kaffee-Baileys", note: "karamellig, samtig" },
       { src: "/images/toertchen/toertchen3.jpg", title: "Pistazie", note: "nussig, samtig" },
       { src: "/images/toertchen/toertchen4.jpg", title: "Himbeere", note: "fruchtig, samtig" },
-      { src: "/images/toertchen/toertchen4.jpg", title: "Mango", note: "fruchtig, samtig" },
+      { src: "/images/toertchen/toertchen5.jpg", title: "Mango", note: "fruchtig, samtig" },
 ],
     []
   );
