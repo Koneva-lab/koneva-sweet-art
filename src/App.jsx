@@ -3119,6 +3119,13 @@ Umsatzsteuer-ID
 Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:
 DE302012517
 
+Verbraucherinformation
+Die Europäische Kommission stellt eine Plattform zur Online- Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr
+Unsere E-Mail-Adresse finden Sie oben im Impressum.
+
+Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+
+
 Aufsichtsbehörde 
 Handwerkskammer Karlsruhe
 Friedrichspl. 4-5, 76133 Karlsruhe
