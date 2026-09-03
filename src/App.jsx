@@ -2085,33 +2085,52 @@ trackEvent("contact_submit", {
         <div className="relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className="mx-auto mb-10 w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden relative"
-          >
-            <div className="absolute inset-0 pointer-events-none rounded-full border-2 border-gold/65" />
-            <div className="absolute -inset-2 pointer-events-none rounded-full border border-gold/25 blur-[2px]" />
-            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
-
-            <video
-              className="w-full h-full object-cover rounded-full"
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  transition={{ duration: 0.9, ease: "easeOut" }}
+  className="mx-auto mb-10 w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden relative isolate"
   style={{
-    display: "block",
-    width: "100%",
-    height: "100%",
     borderRadius: "50%",
-    objectFit: "cover",
+    clipPath: "circle(50% at 50% 50%)",
+    WebkitClipPath: "circle(50% at 50% 50%)",
   }}
-  poster={HERO_VIDEO_POSTER}
-  autoPlay
-  muted
-  playsInline
-  preload="auto"
-  fetchpriority="high"
 >
-  <source src="/videos/hero.webm" type="video/webm" />
-  <source src="/videos/hero.mp4" type="video/mp4" />
-</video>
+  <div
+    className="absolute inset-0 pointer-events-none rounded-full border-2 border-gold/65"
+    style={{
+      borderRadius: "50%",
+    }}
+  />
+
+  <div
+    className="absolute -inset-2 pointer-events-none rounded-full border border-gold/25 blur-[2px]"
+    style={{
+      borderRadius: "50%",
+    }}
+  />
+
+  <div className="absolute inset-0 bg-black/20 pointer-events-none rounded-full" />
+
+  <video
+    className="w-full h-full object-cover rounded-full"
+    style={{
+      display: "block",
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      objectFit: "cover",
+      clipPath: "circle(50% at 50% 50%)",
+      WebkitClipPath: "circle(50% at 50% 50%)",
+    }}
+    poster={HERO_VIDEO_POSTER}
+    autoPlay
+    muted
+    playsInline
+    preload="auto"
+    fetchpriority="high"
+  >
+    <source src="/videos/hero.webm" type="video/webm" />
+    <source src="/videos/hero.mp4" type="video/mp4" />
+  </video>
 
             
           </motion.div>
