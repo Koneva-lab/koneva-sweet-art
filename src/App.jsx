@@ -2094,13 +2094,20 @@ trackEvent("contact_submit", {
             <div className="absolute inset-0 bg-black/20 pointer-events-none" />
 
             <video
-              className="w-full h-full object-cover"
-              poster={HERO_VIDEO_POSTER}
-              autoPlay
-              muted
-              playsInline
-              preload="auto"
-              fetchpriority="high"
+              className="w-full h-full object-cover rounded-full"
+  style={{
+    display: "block",
+    width: "100%",
+    height: "100%",
+    borderRadius: "50%",
+    objectFit: "cover",
+  }}
+  poster={HERO_VIDEO_POSTER}
+  autoPlay
+  muted
+  playsInline
+  preload="auto"
+  fetchpriority="high"
 >
   <source src="/videos/hero.webm" type="video/webm" />
   <source src="/videos/hero.mp4" type="video/mp4" />
