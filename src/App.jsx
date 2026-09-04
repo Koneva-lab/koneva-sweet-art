@@ -2085,26 +2085,61 @@ trackEvent("contact_submit", {
         <div className="relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className="mx-auto mb-10 w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden relative"
-          >
-            <div className="absolute inset-0 pointer-events-none rounded-full border-2 border-gold/65" />
-            <div className="absolute -inset-2 pointer-events-none rounded-full border border-gold/25 blur-[2px]" />
-            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
-
-            <video
-              className="w-full h-full object-cover"
-              poster={HERO_VIDEO_POSTER}
-              autoPlay
-              muted
-              playsInline
-              preload="auto"
-              fetchpriority="high"
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  transition={{ duration: 0.9, ease: "easeOut" }}
+  className="mx-auto mb-10 w-64 h-64 md:w-80 md:h-80 relative"
 >
-  <source src="/videos/hero.webm" type="video/webm" />
-  <source src="/videos/hero.mp4" type="video/mp4" />
-</video>
+  {/* Video-Kreis */}
+  <div
+    className="absolute inset-0 rounded-full overflow-hidden"
+    style={{
+      borderRadius: "50%",
+      overflow: "hidden",
+      isolation: "isolate",
+    }}
+  >
+    <video
+      className="w-full h-full object-cover"
+      style={{
+        display: "block",
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        borderRadius: "50%",
+      }}
+      poster={HERO_VIDEO_POSTER}
+      autoPlay
+      muted
+      playsInline
+      preload="auto"
+      fetchpriority="high"
+    >
+      <source src="/videos/hero.webm" type="video/webm" />
+      <source src="/videos/hero.mp4" type="video/mp4" />
+    </video>
+
+    {/* leichter dunkler Overlay */}
+    <div className="absolute inset-0 rounded-full bg-black/20 pointer-events-none" />
+  </div>
+
+  {/* Goldener Rahmen – unabhängig vom Video */}
+  <div
+    className="absolute inset-0 rounded-full pointer-events-none"
+    style={{
+      borderRadius: "50%",
+      border: "2px solid rgba(201,162,77,0.65)",
+    }}
+  />
+
+  {/* Äußerer feiner Gold-Glow */}
+  <div
+    className="absolute -inset-2 rounded-full pointer-events-none"
+    style={{
+      borderRadius: "50%",
+      border: "1px solid rgba(201,162,77,0.25)",
+      filter: "blur(2px)",
+    }}
+  />
 
             
           </motion.div>
