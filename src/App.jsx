@@ -1257,10 +1257,58 @@ didMove.current = true;
 }
 
 
+/* Vollständiger Impressumstext – wird in der separaten Seite und im Pop-up verwendet. */
+const IMPRESSUM_TEXT = `Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)
+
+Koneva Sweet Art
+Inhaberin: Jelena Koneva
+Poststr. 9
+75385 Bad Teinach
+Deutschland
+
+Kontakt
+Telefon: +49 177 3633727
+E-Mail: koneva_sweet_art@yahoo.com
+
+Umsatzsteuer-Identifikationsnummer
+Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz (UStG):
+DE302012517
+
+Zuständige Handwerkskammer
+Handwerkskammer Karlsruhe
+Friedrichsplatz 4–5
+76133 Karlsruhe
+Deutschland
+
+Berufsbezeichnung
+Konditorin, verliehen in der Bundesrepublik Deutschland
+
+Berufsrechtliche Regelungen
+Handwerksordnung (HwO), abrufbar unter:
+https://www.gesetze-im-internet.de/hwo/
+
+Verantwortlich für den Inhalt gemäß § 18 Abs. 2 Medienstaatsvertrag (MStV)
+Jelena Koneva
+Poststr. 9
+75385 Bad Teinach
+Deutschland
+
+Verbraucherstreitbeilegung
+Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+
+Haftung für Inhalte
+Ich bemühe mich, die Inhalte dieser Website sorgfältig zu erstellen und aktuell zu halten. Für Richtigkeit, Vollständigkeit und Aktualität übernehme ich – soweit gesetzlich zulässig – keine Gewähr. Gesetzliche Haftungspflichten bleiben unberührt.
+
+Haftung für Links
+Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Für diese fremden Inhalte übernehme ich keine Gewähr. Für die Inhalte der verlinkten Seiten sind stets die jeweiligen Anbieter oder Betreiber verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werde ich entsprechende Links im Rahmen der gesetzlichen Möglichkeiten prüfen und gegebenenfalls entfernen.
+
+Urheberrecht
+Die von mir erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Jede Verwertung außerhalb der Grenzen des Urheberrechts bedarf der vorherigen schriftlichen Zustimmung der jeweiligen Rechteinhaberin, soweit gesetzlich nicht anders erlaubt.`;
+
 /* =========================
    App
    ========================= */
-export default function App() {
+function MainApp() {
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjjllyo";
   const brand = "Koneva Sweet Art";
 
@@ -3081,12 +3129,18 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
           </div>
 
           <div className="flex flex-wrap justify-center gap-5 text-sm text-cream/80">
+            <a
+              href="/impressum"
+              className="underline underline-offset-4 hover:text-cream transition"
+            >
+              Impressum
+            </a>
             <button
               className="underline underline-offset-4 hover:text-cream transition"
               onClick={() => setLegalModal("impressum")}
               type="button"
             >
-              Impressum
+              Impressum (Pop-up)
             </button>
             <button
               className="underline underline-offset-4 hover:text-cream transition"
@@ -3139,55 +3193,7 @@ Hier teile ich meine Arbeit, meine Prozesse, meine Suche nach Perfektion und mei
       <AnimatePresence>
         {legalModal === "impressum" && (
           <ModalShell title="Impressum" subtitle="Rechtliches" onClose={() => setLegalModal(null)}>
-{`Angaben gemäß § 5 TMG
-
-Koneva Sweet Art
-Inhaberin: Jelena Koneva
-Poststr. 9
-75385 Bad Teinach
-Deutschland
-
-Telefon: +49(0)1773633727
-E-Mail: koneva_sweet_art@yahoo.com
-
-Umsatzsteuer-ID
-Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:
-DE302012517
-
-Verbraucherinformation
-Die Europäische Kommission stellt eine Plattform zur Online- Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr
-Unsere E-Mail-Adresse finden Sie oben im Impressum.
-
-Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
-
-
-Aufsichtsbehörde 
-Handwerkskammer Karlsruhe
-Friedrichspl. 4-5, 76133 Karlsruhe
-
-Berufsbezeichnung
-Konditorin (verliehen in der Bundesrepublik Deutschland)
-
-Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
-Jelena Koneva
-Poststr. 9
-75385 Bad Teinach
-Deutschland
-
-Haftung für Inhalte
-
-Als Diensteanbieter bin ich gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
-Nach §§ 8 bis 10 TMG bin ich jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.
-
-Haftung für Links
-
-Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe.
-Für diese fremden Inhalte wird daher keine Gewähr übernommen.
-
-Urheberrecht
-
-Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht.
-Eine Vervielfältigung oder Verwendung außerhalb der Grenzen des Urheberrechts bedarf der schriftlichen Zustimmung.`}
+            {IMPRESSUM_TEXT}
           </ModalShell>
         )}
 
@@ -3457,5 +3463,97 @@ onZoomChange={setZoomScale}
   );
 }
 
+/* =========================
+   Separate Impressum page: /impressum
+   ========================= */
+function ImpressumPage() {
+  const [, setCookieConsent] = useState(null);
+  const cookieOpenRef = useRef(null);
 
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = "Impressum | Koneva Sweet Art";
+    return () => {
+      document.title = previousTitle;
+    };
+  }, []);
 
+  return (
+    <div className="min-h-screen bg-[#0E0E0E] text-white font-sans">
+      <GlobalLuxuryStyles />
+
+      <CookieBanner
+        onConsentChange={(choice) => {
+          setCookieConsent(choice);
+          if (choice?.analytics) enableAnalytics();
+        }}
+        registerOpenSettings={(fn) => {
+          cookieOpenRef.current = fn;
+        }}
+      />
+
+      <header className="fixed top-0 left-0 right-0 z-40 bg-black/75 backdrop-blur border-b border-white/10">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <a href="/#top" className="flex items-center gap-3 min-w-0">
+            <img src="/images/logo.png" alt="Koneva Sweet Art Logo" className="h-12 md:h-14 w-auto" />
+            <span className="hidden sm:inline font-serif tracking-wide text-lg brand-shimmer">Koneva Sweet Art</span>
+          </a>
+          <a
+            href="/#top"
+            className="shrink-0 px-4 py-2 rounded-full border border-gold/40 text-cream text-sm hover:bg-gold/10 transition"
+          >
+            Zur Startseite
+          </a>
+        </div>
+      </header>
+
+      <main className="px-6 pt-32 pb-20 md:pt-40">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="uppercase tracking-[0.3em] text-xs text-gold mb-4">Rechtliches</p>
+            <h1 className="text-4xl md:text-5xl font-serif text-cream">Impressum</h1>
+            <div className="mt-5 flex justify-center">
+              <ShimmerLine className="w-16 h-[2px] translate-x-1 opacity-100" />
+            </div>
+          </div>
+
+          <article className="border border-gold/25 rounded-3xl p-6 md:p-10 bg-white/[0.025] shadow-2xl">
+            <div className="whitespace-pre-line break-words text-cream/85 text-sm md:text-base leading-[1.95]">
+              {IMPRESSUM_TEXT}
+            </div>
+          </article>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4 text-sm">
+            <a
+              href="/#top"
+              className="px-5 py-3 rounded-full bg-gold text-blackSoft tracking-wide font-medium hover:brightness-110 transition"
+            >
+              Zur Startseite
+            </a>
+            <button
+              type="button"
+              onClick={() => cookieOpenRef.current?.()}
+              className="px-5 py-3 rounded-full border border-white/15 text-cream hover:border-gold/50 transition"
+            >
+              Cookie-Einstellungen
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <footer className="border-t border-white/10 bg-black/40 px-6 py-8 text-center text-xs text-cream/55">
+        © {new Date().getFullYear()} Koneva Sweet Art · Alle Rechte vorbehalten
+      </footer>
+    </div>
+  );
+}
+
+/* Route selection happens before mounting either page, so hooks in MainApp stay stable. */
+export default function App() {
+  const pathname = typeof window !== "undefined"
+    ? window.location.pathname.replace(/\/+$/, "") || "/"
+    : "/";
+
+  if (pathname === "/impressum") return <ImpressumPage />;
+  return <MainApp />;
+}
