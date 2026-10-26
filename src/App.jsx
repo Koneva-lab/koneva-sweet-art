@@ -1923,7 +1923,7 @@ trackEvent("contact_submit", {
   const fillings = useMemo(
     () => [
       { src: "/images/fillings/filling1.jpg", title: "Mango-Torte", note: "fruchtig, fein" },
-      { src: "/images/fillings/filling2.jpg", title: "Kirsch-Torte", note: "frisch, klar" },
+      { src: "/images/fillings/filling2.jpg", title: "Kirsch-Torte", note: "frisch, fein" },
       { src: "/images/fillings/filling3.jpg", title: "Pistazien-Torte", note: "nussig, fein" },
       { src: "/images/fillings/filling4.jpg", title: "Schokoladen-Kirsch-Torte", note: "frisch, klar" },
       { src: "/images/fillings/filling5.jpg", title: "Beeren-Mix-Mousse-Torte", note: "fruchtig, samtig" },
@@ -1932,11 +1932,11 @@ trackEvent("contact_submit", {
 
       { src: "/images/fillings/filling11.jpg", title: "Schwarzwald-Torte", note: "intensiv, fein" },
       { src: "/images/fillings/filling12.jpg", title: "Schokoladen-Sahne-Mix", note: "cremig, elegant" },
-      { src: "/images/fillings/filling13.jpg", title: "Schokoladen-Kirsch-Torte", note: "fruchtig, fein" },
+      
       { src: "/images/fillings/filling14.jpg", title: "Erdbeer-Mojito-Torte", note: "frisch, klar" },
       { src: "/images/fillings/filling15.jpg", title: "Snickers-Torte", note: "nussig, karamellig" },
       { src: "/images/fillings/filling16.jpg", title: "Schokoladen-Mousse-Kirsch-Torte", note: "fruchtig, samtig" },
-{ src: "/images/fillings/filling17.jpg", title: "Haselnuss-Karamell-Mascarpone-Torte", note: "karamellig, samtig" },
+
 { src: "/images/fillings/filling18.jpg", title: "Karamell-Apfel-Torte", note: "fruchtig, samtig" },
 { src: "/images/fillings/filling19.jpg", title: "Mango-Erdbeer-Torte", note: "fruchtig, frisch" },
 { src: "/images/fillings/filling20.jpg", title: "Karamell-Frischkäse- und Beeren-Torte", note: "karamellig und fruchtig" },
@@ -1945,7 +1945,7 @@ trackEvent("contact_submit", {
 { src: "/images/fillings/filling23.jpg", title: "Mandarinen-Tartellete", note: "fruchtig, samtig" },
 { src: "/images/fillings/filling24.jpg", title: "Zitronen-Tartellete", note: "fruchtig, samtig" },
 { src: "/images/fillings/filling25.jpg", title: "Aprikosen-Cognac-Tartellete", note: "fruchtig, samtig" },
-{ src: "/images/fillings/filling26.jpg", title: "Füllungen" },
+
     ],
     []
   );
