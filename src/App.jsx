@@ -1945,11 +1945,12 @@ trackEvent("contact_submit", {
   // Törtchen
   const toertchen = useMemo(
     () => [
-      { src: "/images/toertchen/toertchen1.jpg", title: "Zitrone", note: "intensiv, fein" },
+      { src: "/images/toertchen/toertchen1.jpg", title: "Mousse Törtchen Preise" },
       { src: "/images/toertchen/toertchen2.jpg", title: "Kaffee-Baileys", note: "karamellig, samtig" },
       { src: "/images/toertchen/toertchen3.jpg", title: "Pistazie", note: "nussig, samtig" },
       { src: "/images/toertchen/toertchen4.jpg", title: "Himbeere", note: "fruchtig, samtig" },
       { src: "/images/toertchen/toertchen5.jpg", title: "Mango", note: "fruchtig, samtig" },
+      { src: "/images/toertchen/toertchen6.jpg", title: "Zitrone", note: "intensiv, fein" },
 ],
     []
   );
@@ -1958,12 +1959,12 @@ trackEvent("contact_submit", {
   // Videos
   const videos = useMemo(
     () => [
-      { src: "/videos/video1.mp4", poster: "/images/videos/poster1.jpg", title: "Finisch · Detail" },
-      { src: "/videos/video2.mp4", poster: "/images/videos/poster2.jpg", title: "Finisch · Texture" },
-      { src: "/videos/video3.mp4", poster: "/images/videos/poster3.jpg", title: "Finisch · Detail" },
-      { src: "/videos/video4.mp4", poster: "/images/videos/poster3.jpg", title: "Finisch · Detail" },
-      { src: "/videos/video5.mp4", poster: "/images/videos/poster3.jpg", title: "Finisch · Detail" },
-      { src: "/videos/video6.mp4", poster: "/images/videos/poster3.jpg", title: "Finisch · Detail" },
+      { src: "/videos/video1.mp4", poster: "/images/videos/poster1.jpg", title: "Torte · Meeres Perle" },
+      { src: "/videos/video2.mp4", poster: "/images/videos/poster2.jpg", title: "Torte · Strand" },
+      { src: "/videos/video3.mp4", poster: "/images/videos/poster3.jpg", title: "Torte · Grotte" },
+      { src: "/videos/video4.mp4", poster: "/images/videos/poster3.jpg", title: "Torte · Schmetterling" },
+      { src: "/videos/video5.mp4", poster: "/images/videos/poster3.jpg", title: "Torte · 50" },
+      { src: "/videos/video6.mp4", poster: "/images/videos/poster3.jpg", title: "Mousse Törtchen" },
     ],
     []
   );
