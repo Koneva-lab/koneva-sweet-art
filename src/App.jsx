@@ -1967,12 +1967,13 @@ trackEvent("contact_submit", {
   // Videos
   const videos = useMemo(
     () => [
-      { src: "/videos/video1.mp4", poster: "/images/videos/poster1.jpg", title: "Torte · Meeres Perle" },
-      { src: "/videos/video2.mp4", poster: "/images/videos/poster2.jpg", title: "Torte · Strand" },
-      { src: "/videos/video3.mp4", poster: "/images/videos/poster3.jpg", title: "Torte · Grotte" },
-      { src: "/videos/video4.mp4", poster: "/images/videos/poster3.jpg", title: "Torte · Schmetterling" },
-      { src: "/videos/video5.mp4", poster: "/images/videos/poster3.jpg", title: "Torte · 50" },
-      { src: "/videos/video6.mp4", poster: "/images/videos/poster3.jpg", title: "Mousse Törtchen" },
+      { src: "/videos/video1.mp4", poster: "/images/videos/poster1.jpg", title: "Torte · Ozean der Liebe" },
+      { src: "/videos/video4.mp4", poster: "/images/videos/poster4.jpg", title: "Torte · Meeres Perle" },
+      { src: "/videos/video5.mp4", poster: "/images/videos/poster5.jpg", title: "Torte · Strand" },
+      { src: "/videos/video6.mp4", poster: "/images/videos/poster6.jpg", title: "Torte · Grotte" },
+      { src: "/videos/video7.mp4", poster: "/images/videos/poster7.jpg", title: "Torte · Schmetterling" },
+      { src: "/videos/video8.mp4", poster: "/images/videos/poster8.jpg", title: "Torte · 50" },
+      { src: "/videos/video9.mp4", poster: "/images/videos/poster9.jpg", title: "Mousse Törtchen" },
     ],
     []
   );
